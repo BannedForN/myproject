@@ -1,0 +1,77 @@
+/* Основные стили */
+body {
+    font-family: 'Times New Roman', serif;
+    background-color: #0a0a0a;
+    color: #d3b85c;
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/imperium_bg.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(10, 10, 10, 0.8);
+    border-left: 2px solid #d3b85c;
+    border-right: 2px solid #d3b85c;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    border-bottom: 1px solid #d3b85c;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #c41e1e;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* Навигация */
+.nav {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.nav a {
+    color: #d3b85c;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 5px 10px;
+    border: 1px solid #d3b85c;
+    transition: all 0.3s;
+}
+
+.nav a:hover, .nav a.active {
+    background-color: #d3b85c;
+    color: #0a0a0a;
+}
+
+/* Контент */
+.content {
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.imperium-symbol {
+    max-width: 200px;
+    display: block;
+    margin: 20px auto;
+}
+
+/* Подвал */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #d3b85c;
+    font-size: 0.8em;
+}

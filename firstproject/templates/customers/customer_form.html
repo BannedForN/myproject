@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if object %}Редактирование {{ object.user.username }}{% else %}Новый покупатель{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3>
+                <i class="bi bi-person-plus"></i>
+                {% if object %}
+                    Редактирование покупателя: {{ object.user.get_full_name }}
+                {% else %}
+                    Добавление нового покупателя
+                {% endif %}
+            </h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Пользователь</label>
+                            {{ form.user }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Телефон</label>
+                            {{ form.phone }}
+                            <small class="text-muted">Формат: +7 XXX XXX-XX-XX</small>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Дата рождения</label>
+                            {{ form.birth_date }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Адрес</label>
+                    {{ form.address }}
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save"></i> Сохранить
+                    </button>
+                    <a href="{% if object %}{% url 'customer_detail' object.pk %}{% else %}{% url 'customer_list' %}{% endif %}" 
+                       class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if object %}Редактирование {{ object.title }}{% else %}Новая игра{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">
+                <i class="bi bi-pencil-square"></i>
+                {% if object %}
+                    Редактирование: {{ object.title }}
+                {% else %}
+                    Создание новой игры
+                {% endif %}
+            </h3>
+        </div>
+        
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="row g-3">
+                    <!-- Левая колонка -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Название игры</label>
+                            {{ form.title }}
+                            {{ form.title.errors }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Категория</label>
+                            {{ form.category }}
+                            {{ form.category.errors }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Издатель</label>
+                            {{ form.publisher }}
+                            {{ form.publisher.errors }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Дизайнеры</label>
+                            {{ form.designers }}
+                            {{ form.designers.errors }}
+                        </div>
+                    </div>
+                    
+                    <!-- Правая колонка -->
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Мин. игроков</label>
+                                    {{ form.min_players }}
+                                    {{ form.min_players.errors }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Макс. игроков</label>
+                                    {{ form.max_players }}
+                                    {{ form.max_players.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Время игры (мин)</label>
+                            {{ form.play_time }}
+                            {{ form.play_time.errors }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Возрастной рейтинг</label>
+                            {{ form.age_rating }}
+                            {{ form.age_rating.errors }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Дата выпуска</label>
+                            {{ form.release_date }}
+                            {{ form.release_date.errors }}
+                        </div>
+                    </div>
+                    
+                    <!-- Нижняя часть -->
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="form-label">Описание</label>
+                            {{ form.description }}
+                            {{ form.description.errors }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Цена (руб)</label>
+                            {{ form.price }}
+                            {{ form.price.errors }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Изображение</label>
+                            {{ form.image }}
+                            {{ form.image.errors }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save"></i> Сохранить
+                    </button>
+                    <a href="{% if object %}{% url 'game_detail' object.pk %}{% else %}{% url 'game_list' %}{% endif %}" 
+                       class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

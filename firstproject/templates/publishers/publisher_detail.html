@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ publisher.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3>
+                <i class="bi bi-building"></i> {{ publisher.name }}
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Информация об издателе:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Страна:</strong> {{ publisher.country }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Год основания:</strong> {{ publisher.founded|default:"не указан" }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Веб-сайт:</strong> 
+                            {% if publisher.website %}
+                                <a href="{{ publisher.website }}" target="_blank">{{ publisher.website }}</a>
+                            {% else %}
+                                не указан
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>Статистика:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Всего игр:</strong> {{ publisher.games.count }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Средняя цена:</strong> 
+                            {% if publisher.games.count > 0 %}
+                                {{ publisher.games.avg_price|floatformat:2 }} руб.
+                            {% else %}
+                                -
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h5 class="mt-4">Изданные игры:</h5>
+            {% if games %}
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for game in games %}
+                <div class="col">
+                    <div class="card h-100">
+                        {% if game.image %}
+                        <img src="{{ game.image.url }}" class="card-img-top" alt="{{ game.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h6 class="card-title">{{ game.title }}</h6>
+                            <p class="card-text">{{ game.description|truncatechars:100 }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'game_detail' game.pk %}" class="btn btn-sm btn-primary">
+                                Подробнее
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info mt-3">
+                У этого издателя пока нет игр в каталоге
+            </div>
+            {% endif %}
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'publisher_list' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Назад к списку
+                </a>
+                <div class="btn-group">
+                    <a href="{% url 'publisher_update' publisher.pk %}" 
+                       class="btn btn-warning">
+                        <i class="bi bi-pencil"></i> Редактировать
+                    </a>
+                    <a href="{% url 'publisher_delete' publisher.pk %}" 
+                       class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Удалить
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Удаление {{ object.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-danger text-white">
+            <h3 class="mb-0">
+                <i class="bi bi-exclamation-triangle"></i> Подтверждение удаления
+            </h3>
+        </div>
+        
+        <div class="card-body">
+            <p>Вы уверены, что хотите удалить игру <strong>"{{ object.title }}"</strong>?</p>
+            
+            {% if object.order_details.exists %}
+            <div class="alert alert-warning">
+                <h5 class="alert-heading">Внимание!</h5>
+                <p>Эта игра присутствует в {{ object.order_details.count }} заказах</p>
+            </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Удалить
+                    </button>
+                    <a href="{% url 'game_detail' object.pk %}" class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

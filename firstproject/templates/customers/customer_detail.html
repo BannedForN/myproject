@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ customer.user.get_full_name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3><i class="bi bi-person-circle"></i> {{ customer.user.get_full_name }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Контактная информация:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Телефон:</strong> {{ customer.phone|default:"Не указан" }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Адрес:</strong> {{ customer.address|default:"Не указан" }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Дата рождения:</strong> 
+                            {{ customer.birth_date|date:"d.m.Y"|default:"Не указана" }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>Статистика:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Дата регистрации:</strong> 
+                            {{ customer.registration_date|date:"d.m.Y" }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Всего заказов:</strong> {{ customer.orders.count }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Общая сумма заказов:</strong> 
+                            {{ customer.orders.total_amount|default:0|floatformat:2 }} руб.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h5 class="mt-4">История заказов:</h5>
+            {% if customer.orders.all %}
+            <div class="list-group">
+                {% for order in customer.orders.all %}
+                <a href="{% url 'order_detail' order.pk %}" class="list-group-item list-group-item-action">
+                    Заказ #{{ order.pk }} от {{ order.order_date|date:"d.m.Y" }} 
+                    ({{ order.get_status_display }})
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info mt-3">
+                У этого покупателя пока нет заказов
+            </div>
+            {% endif %}
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'customer_list' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Назад
+                </a>
+                <div class="btn-group">
+                    <a href="{% url 'customer_update' customer.pk %}" class="btn btn-warning">
+                        <i class="bi bi-pencil"></i> Редактировать
+                    </a>
+                    <a href="{% url 'customer_delete' customer.pk %}" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Удалить
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
