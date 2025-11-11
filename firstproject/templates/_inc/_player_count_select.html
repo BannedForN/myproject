@@ -1,8 +1,0 @@
-<select name="players" class="form-select">
-    <option value="">Количество игроков</option>
-    {% for i in range %}
-      <option value="{{ i }}" {% if request.GET.players == i|stringformat:"s" %}selected{% endif %}>
-        {{ i }} {{ i|pluralize:"игрок,игрока,игроков" }}
-      </option>
-    {% endfor %}
-  </select>

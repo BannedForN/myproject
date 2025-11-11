@@ -1,3 +1,30 @@
+
+/* === EdgeSteel theme override (kitchen knives store) === */
+:root{
+  --bg:#0f1115; --card:#151922; --muted:#1d2330; --fg:#e6e8ef; --sub:#aab1c6; --accent:#8bd3dd; --accent-2:#f6a609;
+  --radius:18px;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --font: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+html,body{background:var(--bg); color:var(--fg); font-family:var(--font);}
+.navbar{background:linear-gradient(180deg,#0f1115,#0c0e12)!important; border-bottom:1px solid #1b2130;}
+.navbar .nav-link{color:var(--sub)!important;}
+.navbar .nav-link:hover{color:var(--fg)!important;}
+.card{background:var(--card); border:1px solid #21283a; border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}
+.card-title{font-weight:700; letter-spacing:.2px;}
+.btn-primary{background:var(--accent); border-color:var(--accent); color:#0a0c10;}
+.btn-primary:hover{filter:brightness(0.95);}
+.table{color:var(--fg);}
+.table thead th{color:var(--sub); border-color:#232a3d;}
+.table td, .table th{border-color:#232a3d;}
+.badge{background:var(--muted); color:var(--fg); border-radius:999px; padding:.45rem .7rem;}
+.form-control, .form-select{background:#0f141f; color:var(--fg); border:1px solid #232a3d; border-radius:14px;}
+.form-control:focus, .form-select:focus{border-color:var(--accent-2); box-shadow:0 0 0 .2rem rgba(246,166,9,.15)}
+.footer{color:var(--sub);}
+img.card-img-top{aspect-ratio:4/3; object-fit:cover; filter:saturate(1.05) contrast(1.05);}
+/* End EdgeSteel theme */
+
+
 /* Основные стили */
 body {
     font-family: 'Times New Roman', serif;

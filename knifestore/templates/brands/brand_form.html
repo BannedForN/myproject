@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if object %}Редактирование {{ object.name }}{% else %}Новый Бренд{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3>
+                <i class="bi bi-building"></i>
+                {% if object %}
+                    Редактирование издателя: {{ object.name }}
+                {% else %}
+                    Добавление нового издателя
+                {% endif %}
+            </h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_name" class="form-label">Название издательства</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="text-danger">{{ form.name.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_country" class="form-label">Страна</label>
+                            {{ form.country }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_website" class="form-label">Веб-сайт</label>
+                            {{ form.website }}
+                            <small class="text-muted">Например: https://example.com</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_founded" class="form-label">Год основания</label>
+                            {{ form.founded }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save"></i> Сохранить
+                    </button>
+                    <a href="{% if object %}{% url 'brand_detail' object.pk %}{% else %}{% url 'brand_list' %}{% endif %}" 
+                       class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

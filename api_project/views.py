@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from .serializers import *
 from rest_framework import viewsets, mixins
-from firstproject.models import *
+from knifestore.models import *
 from .permission import CustomPermissions, PaginationPage
 from rest_framework.renderers import AdminRenderer
 # Create your views here.
@@ -21,17 +21,17 @@ class CategoryViewSet(viewsets.ModelViewSet):
         
         return queryset
 
-class PublisherViewSet(mixins.ListModelMixin,
+class BrandViewSet(mixins.ListModelMixin,
                        mixins.RetrieveModelMixin,
                        viewsets.GenericViewSet):
-    queryset = Publisher.objects.all()
-    serializer_class = PublisherSerializer
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
     permission_classes = [CustomPermissions]
     pagination_class = PaginationPage
     renderer_classes = [AdminRenderer]
 
     def get_queryset(self):
-        queryset = Publisher.objects.all()
+        queryset = Brand.objects.all()
         name = self.request.query_params.get('name', None)
 
         if name is not None:
@@ -39,14 +39,14 @@ class PublisherViewSet(mixins.ListModelMixin,
         
         return queryset
     
-class DesignerViewSet(viewsets.ModelViewSet):
-    queryset = Designer.objects.all()
-    serializer_class = DesignerSerializer
+class SeriesViewSet(viewsets.ModelViewSet):
+    queryset = Series.objects.all()
+    serializer_class = SeriesSerializer
     permission_classes = [CustomPermissions]
     pagination_class = PaginationPage
 
     def get_queryset(self):
-        queryset = Designer.objects.all()
+        queryset = Series.objects.all()
         last_name = self.request.query_params.get('last_name', None)
 
         if last_name is not None:
@@ -54,14 +54,14 @@ class DesignerViewSet(viewsets.ModelViewSet):
         
         return queryset
 
-class GameViewSet(viewsets.ModelViewSet):
-    queryset = Game.objects.all()
-    serializer_class = GameSerializer
+class KnifeViewSet(viewsets.ModelViewSet):
+    queryset = Knife.objects.all()
+    serializer_class = KnifeSerializer
     permission_classes = [CustomPermissions]
     pagination_class = PaginationPage
 
     def get_queryset(self):
-        queryset = Game.objects.all()
+        queryset = Knife.objects.all()
         title = self.request.query_params.get('title', None)
 
         if title is not None:

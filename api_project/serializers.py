@@ -1,24 +1,24 @@
 from rest_framework import serializers
-from firstproject.models import *
+from knifestore.models import *
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
 
-class PublisherSerializer(serializers.ModelSerializer):
+class BrandSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Publisher
+        model = Brand
         fields = '__all__'
 
-class DesignerSerializer(serializers.ModelSerializer):
+class SeriesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Designer
+        model = Series
         fields = '__all__'
 
-class GameSerializer(serializers.ModelSerializer):
+class KnifeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Game
+        model = Knife
         fields = '__all__'
 
 class CustomerSerializer(serializers.ModelSerializer):

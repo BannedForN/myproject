@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from firstproject.models import Game, Order, OrderItem, Customer
+from knifestore.models import Knife, Order, OrderItem, Customer
 from .basket import Basket
 from django.utils import timezone
 from .forms import *
@@ -33,7 +33,7 @@ def basket_detail(request):
 @login_required
 def basket_remove(request, product_id):
     basket = Basket(request)
-    product = get_object_or_404(Game, pk=product_id)
+    product = get_object_or_404(Knife, pk=product_id)
     basket.remove(product)
     return redirect('basket_detail')
 
@@ -47,7 +47,7 @@ def basket_clear(request):
 @require_POST
 def basket_add(request, product_id):
     basket = Basket(request)
-    product = get_object_or_404(Game, pk=product_id)
+    product = get_object_or_404(Knife, pk=product_id)
     form = BasketAddProductForm(request.POST)
     if form.is_valid():
         basket.add(
@@ -74,7 +74,7 @@ def basket_buy(request):
         order.price = basket.get_total_price()
         for item in basket:
             orderitem = OrderItem.objects.create(
-                game = item['product'],
+                knife = item['product'],
                 count = item['count'],
                 order = order
             )
@@ -103,7 +103,7 @@ def open_order(request):
             for item in basket:
                 OrderItem.objects.create(
                     order=order,
-                    game=item['product'],
+                    knife=item['product'],
                     quantity=item['count'],
                     price=item['product'].price
                 )

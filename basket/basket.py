@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.conf import settings
-from firstproject.models import Game
+from knifestore.models import Knife
 
 class Basket:
     def __init__(self, request):
@@ -13,7 +13,7 @@ class Basket:
     def __iter__(self):
         product_ids = self.basket.keys()
 
-        product_list = Game.objects.filter(pk__in=product_ids)
+        product_list = Knife.objects.filter(pk__in=product_ids)
 
         basket = self.basket.copy()
         for product in product_list:

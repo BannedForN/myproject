@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ series.last_name }} {{ series.first_name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3>
+                <i class="bi bi-person-badge"></i> {{ series.last_name }} {{ series.first_name }}
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Основная информация:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Дата рождения:</strong> 
+                            {{ series.birth_date|default:"не указана"|date:"d.m.Y" }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Страна:</strong> {{ series.country }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Возраст:</strong> 
+                            {% if series.birth_date %}
+                                {{ series.birth_date|timesince }}
+                            {% else %}
+                                не указан
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>Статистика:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Всего нож:</strong> {{ series.knifes.count }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Популярная Ножи:</strong> 
+                            {% if series.knifes.first %}
+                                {{ series.knifes.first.title }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h5 class="mt-4">Созданные Ножи:</h5>
+            {% if series.knifes.all %}
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for knife in series.knifes.all %}
+                <div class="col">
+                    <div class="card h-100">
+                        {% if knife.image %}
+                        <img src="{{ knife.image.url }}" class="card-img-top" alt="{{ knife.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h6 class="card-title">{{ knife.title }}</h6>
+                            <p class="card-text">{{ knife.description|truncatechars:100 }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'knife_detail' knife.pk %}" class="btn btn-sm btn-primary">
+                                Подробнее
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info mt-3">
+                У этого Серия пока нет созданных нож
+            </div>
+            {% endif %}
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'series_list' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Назад к списку
+                </a>
+                <div class="btn-group">
+                    <a href="{% url 'series_update' series.pk %}" 
+                       class="btn btn-warning">
+                        <i class="bi bi-pencil"></i> Редактировать
+                    </a>
+                    <a href="{% url 'series_delete' series.pk %}" 
+                       class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Удалить
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

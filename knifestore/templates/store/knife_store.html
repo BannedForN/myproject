@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Магазин{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Каталог ножей</h2>
+    <div class="row">
+        {% for knife in knifes %}
+        <div class="col-md-4">
+            <div class="card h-100">
+                {% if knife.image %}
+                    <img src="{{ knife.image.url }}" class="card-img-top" alt="{{ knife.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ knife.title }}</h5>
+                    <p class="card-text">{{ knife.description|truncatechars:100 }}</p>
+                    <p><strong>Цена:</strong> {{ knife.price }} ₽</p>
+                    <form action="{% url 'basket_add' knife.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="count" value="1">
+                        <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Нет доступных ножей.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

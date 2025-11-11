@@ -1,0 +1,71 @@
+[
+  {
+    "model": "knifestore.category",
+    "pk": 1001,
+    "fields": {
+      "name": "Кухонные ножи",
+      "description": "Ножи для кухни: шефские, сантоку, овощные, хлебные и т.п."
+    }
+  },
+  {
+    "model": "knifestore.publisher",
+    "pk": 2001,
+    "fields": {
+      "name": "EdgeSteel",
+      "country": "Япония",
+      "website": "https://example.com/edgesteel"
+    }
+  },
+  {
+    "model": "knifestore.designer",
+    "pk": 3001,
+    "fields": {
+      "name": "Katana Pro Series",
+      "bio": "Линейка кухонных ножей с японскими традициями."
+    }
+  },
+  {
+    "model": "knifestore.knife",
+    "pk": 4001,
+    "fields": {
+      "title": "EdgeSteel Chef 180",
+      "category": 1001,
+      "publisher": 2001,
+      "designer": 3001,
+      "min_players": 1,
+      "max_players": 1,
+      "age_rating": 18,
+      "release_date": "2024-01-01",
+      "price": "8990.00",
+      "description": "Шефский нож 180 мм из стали VG-10.",
+      "steel": "VG-10",
+      "blade_length_mm": 180,
+      "purpose": "CHEF",
+      "edge_angle_deg": 15,
+      "handle_material": "Микарта",
+      "manufacturer_country": "Япония"
+    }
+  },
+  {
+    "model": "knifestore.knife",
+    "pk": 4002,
+    "fields": {
+      "title": "EdgeSteel Santoku 170",
+      "category": 1001,
+      "publisher": 2001,
+      "designer": 3001,
+      "min_players": 1,
+      "max_players": 1,
+      "age_rating": 18,
+      "release_date": "2024-01-15",
+      "price": "7990.00",
+      "description": "Сантоку 170 мм из стали AUS-8.",
+      "steel": "AUS-8",
+      "blade_length_mm": 170,
+      "purpose": "SANTOKU",
+      "edge_angle_deg": 18,
+      "handle_material": "Дерево пакка",
+      "manufacturer_country": "Япония"
+    }
+  }
+]

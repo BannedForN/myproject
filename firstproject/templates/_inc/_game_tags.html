@@ -1,9 +1,0 @@
-<div class="game-tags">
-  {% if game.release_date|date:"Y-m-d" > now|date:"Y-m-d" %}
-    <span class="badge bg-success">Новинка</span>
-  {% endif %}
-  
-  {% if game.price < 3000 %}
-    <span class="badge bg-warning">Бестселлер</span>
-  {% endif %}
-</div>
